@@ -1,0 +1,201 @@
+---
+import { siteConfig } from '../config/site.config';
+import ReviveSlot from '../components/ads/ReviveSlot.astro';
+import MobileStickyAd from '../components/ads/MobileStickyAd.astro';
+import Matomo from '../components/analytics/Matomo.astro';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+  lang?: 'fr' | 'en' | 'es';
+}
+
+const {
+  title = siteConfig.name,
+  description = siteConfig.description,
+  image = '/og-image.jpg',
+  article = false,
+  lang = 'fr',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, siteConfig.url);
+
+const colorThemes: Record<string, { body: string; header: string; accent: string; badge: string; footer: string }> = {
+  'neo-cyan': {
+    body: 'bg-[#06111e] text-slate-100 selection:bg-cyan-400 selection:text-slate-950',
+    header: 'bg-[#08182b]/90 border-cyan-900/40 backdrop-blur-md text-white',
+    accent: 'text-cyan-400 hover:text-cyan-300',
+    badge: 'bg-cyan-950/80 text-cyan-300 border border-cyan-500/30',
+    footer: 'bg-[#040a12] text-slate-400 border-cyan-950/80',
+  }
+};
+
+const theme = colorThemes[siteConfig.theme?.colorScheme] || colorThemes['neo-cyan'];
+---
+
+<!DOCTYPE html>
+<html lang={lang} class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title === siteConfig.name ? title : `${title} | ${siteConfig.name}`}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Hreflang Tags for i18n SEO (strict trailing slashes) -->
+  <link rel="alternate" hreflang="fr" href={`${siteConfig.url}/`} />
+  <link rel="alternate" hreflang="en" href={`${siteConfig.url}/en/`} />
+  <link rel="alternate" hreflang="es" href={`${siteConfig.url}/es/`} />
+  <link rel="alternate" hreflang="x-default" href={`${siteConfig.url}/`} />
+
+  <!-- Google Fonts: Syne / Plus Jakarta Sans for modern brutalist surfing aesthetic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+    h1, h2, h3, .font-heading {
+      font-family: 'Syne', 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: -0.03em;
+    }
+  </style>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content={article ? 'article' : 'website'} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={new URL(image, siteConfig.url)} />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={canonicalURL} />
+  <meta property="twitter:title" content={title} />
+  <meta property="twitter:description" content={description} />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+
+<body class={`min-h-screen flex flex-col ${theme.body} pb-24 md:pb-0`}>
+  <!-- Top Swell Forecast Bar -->
+  <div class="bg-gradient-to-r from-cyan-950 via-[#0a233a] to-cyan-950 border-b border-cyan-800/40 text-[11px] py-1.5 px-4 text-cyan-200">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+          LIVE SWELL
+        </span>
+        <span class="font-medium tracking-wide">
+          ATLANTIQUE NORD : 1.8m — 2.2m (12s) | VENT : ALIZÉ EST 14-18 KTS | EAU : 28°C
+        </span>
+      </div>
+      <div class="hidden md:flex items-center space-x-4 text-slate-400">
+        <span>SPOTS MAJEURS : LE MOULE • ANSE BERTRAND • BANANIER</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- En-tête / Header -->
+  <header class={`sticky top-0 z-40 border-b shadow-lg shadow-black/40 ${theme.header}`}>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href={lang === 'fr' ? '/' : `/${lang}/`} class="flex items-center space-x-3 group">
+          <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-cyan-600 to-teal-400 flex items-center justify-center shadow-md shadow-cyan-500/20">
+            <svg class="w-5 h-5 text-slate-950" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12c2.5-4 5-4 7.5 0 2.5 4 5 4 7.5 0 2.5-4 5-4 7.5 0" />
+              <path d="M2 17c2.5-4 5-4 7.5 0 2.5 4 5 4 7.5 0 2.5-4 5-4 7.5 0" />
+            </svg>
+          </div>
+          <div>
+            <span class="text-xl font-heading font-black tracking-tight text-white group-hover:text-cyan-400 transition-colors">
+              SURF<span class="text-cyan-400">GUADELOUPE</span>
+            </span>
+            <span class="block text-[10px] uppercase tracking-widest text-cyan-400/80 font-mono -mt-1">Caribbean Wave Hub</span>
+          </div>
+        </a>
+
+        <!-- Navigation Desktop -->
+        <nav class="hidden md:flex items-center space-x-6 text-sm font-semibold">
+          <a href="/" class="hover:text-cyan-400 transition-colors">{lang === 'es' ? 'Inicio' : (lang === 'en' ? 'Home' : 'Accueil')}</a>
+          <a href="/blog/" class="hover:text-cyan-400 transition-colors">{lang === 'es' ? 'Guías de Surf' : (lang === 'en' ? 'Wave Guides' : 'Spots & Guides')}</a>
+          <a href="/mentions-legales/" class="text-slate-400 hover:text-white transition-colors">{lang === 'es' ? 'Aviso legal' : (lang === 'en' ? 'Legal' : 'Mentions Légales')}</a>
+        </nav>
+
+        <!-- Sélecteur de Langues -->
+        <div class="flex items-center space-x-1.5 text-xs font-bold bg-[#0d2235] border border-cyan-900/60 rounded-full px-2.5 py-1">
+          <a href="/" class={`px-2 py-0.5 rounded-full transition-colors ${lang === 'fr' ? 'bg-cyan-500 text-slate-950 shadow-sm' : 'text-slate-300 hover:text-cyan-300'}`}>FR</a>
+          <span class="text-slate-600">|</span>
+          <a href="/en/" class={`px-2 py-0.5 rounded-full transition-colors ${lang === 'en' ? 'bg-cyan-500 text-slate-950 shadow-sm' : 'text-slate-300 hover:text-cyan-300'}`}>EN</a>
+          <span class="text-slate-600">|</span>
+          <a href="/es/" class={`px-2 py-0.5 rounded-full transition-colors ${lang === 'es' ? 'bg-cyan-500 text-slate-950 shadow-sm' : 'text-slate-300 hover:text-cyan-300'}`}>ES</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Leaderboard Ad Slot -->
+  {siteConfig.revive?.zones?.header && (
+    <div class="hidden md:flex justify-center my-4">
+      <ReviveSlot format={siteConfig.revive.zones.header.format} zoneId={siteConfig.revive.zones.header.zoneId} />
+    </div>
+  )}
+
+  <!-- Contenu Principal -->
+  <main class="flex-grow">
+    <slot />
+  </main>
+
+  <!-- Mobile Sticky Banner -->
+  {siteConfig.revive?.zones?.mobileSticky && (
+    <MobileStickyAd zoneId={siteConfig.revive.zones.mobileSticky.zoneId} />
+  )}
+
+  <!-- Footer -->
+  <footer class={`mt-20 border-t ${theme.footer}`}>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-sm">
+        <div class="md:col-span-2">
+          <div class="flex items-center space-x-2 mb-3">
+            <span class="text-lg font-heading font-black tracking-tight text-white">
+              SURF<span class="text-cyan-400">GUADELOUPE</span>
+            </span>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed max-w-sm">
+            Plateforme éditoriale indépendante dédiée à la pratique du surf, du foil et des sports de houle en Guadeloupe (Grande-Terre & Basse-Terre). Prévisions de houle, fiches spots et sécurité en mer.
+          </p>
+        </div>
+        <div>
+          <h4 class="text-xs uppercase tracking-wider text-cyan-400 font-bold mb-3">Navigation</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="/" class="hover:text-cyan-400">Accueil</a></li>
+            <li><a href="/blog/" class="hover:text-cyan-400">Guides & Spots de Surf</a></li>
+            <li><a href="/en/" class="hover:text-cyan-400">English Wave Guide</a></li>
+            <li><a href="/es/" class="hover:text-cyan-400">Guía de Surf en Español</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xs uppercase tracking-wider text-cyan-400 font-bold mb-3">Légal & Sécurité</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="/mentions-legales/" class="hover:text-cyan-400">Mentions Légales</a></li>
+            <li><a href="/politique-confidentialite/" class="hover:text-cyan-400">Confidentialité RGPD (Cookieless)</a></li>
+            <li><span class="text-slate-500">Météo France Marine Antilles</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-cyan-950/60 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+        <p>&copy; {new Date().getFullYear()} Surf Guadeloupe. Tous droits réservés.</p>
+        <p class="text-[11px]">Plateforme éco-conçue statique & optimisée pour les surfeurs nomades.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Matomo Tracking -->
+  {siteConfig.matomo?.url && siteConfig.matomo?.siteId && (
+    <Matomo />
+  )}
+</body>
+</html>

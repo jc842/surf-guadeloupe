@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { siteConfig } from '../config/site.config';
+---
+
+<Layout title="Mentions Légales | Surf Guadeloupe">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="bg-[#071728] border border-cyan-950 p-8 sm:p-12 rounded-3xl shadow-xl">
+      <h1 class="text-3xl font-heading font-black text-white mb-6">Mentions Légales</h1>
+      
+      <div class="space-y-6 text-sm text-slate-300 leading-relaxed">
+        <div>
+          <h2 class="text-base font-bold text-cyan-400 mb-2">1. Éditeur de la Plateforme</h2>
+          <p><strong>Éditeur :</strong> {siteConfig.legal.editor}</p>
+          <p><strong>Siège / Localisation :</strong> {siteConfig.legal.address}</p>
+          <p><strong>Contact :</strong> {siteConfig.legal.contactEmail}</p>
+        </div>
+
+        <div>
+          <h2 class="text-base font-bold text-cyan-400 mb-2">2. Hébergement & Réseau de Diffusion</h2>
+          <p><strong>Infrastructure Statique :</strong> Cloudflare Pages (Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA)</p>
+          <p><strong>Routage Edge & Passerelle :</strong> Cloudflare Edge Workers Global Network</p>
+          <p><strong>Données & Sécurité :</strong> Conforme aux exigences du RGPD de l'Union Européenne.</p>
+        </div>
+
+        <div>
+          <h2 class="text-base font-bold text-cyan-400 mb-2">3. Propriété Intellectuelle</h2>
+          <p>
+            L'ensemble des contenus (textes, analyses météorologiques, fiches spots, photographies et infographies) publiés sur <strong>surf-guadeloupe.com</strong> est protégé par les dispositions du Code de la Propriété Intellectuelle. Toute reproduction ou rediffusion sans autorisation préalable expresse est interdite.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

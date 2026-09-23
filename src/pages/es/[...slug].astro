@@ -1,0 +1,79 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+import ReviveSlot from '../../components/ads/ReviveSlot.astro';
+import { siteConfig } from '../../config/site.config';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => data.lang === 'es');
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.heroImage}
+  article={true}
+  lang="es"
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <nav class="flex items-center space-x-2 text-xs font-mono text-slate-400 mb-8">
+      <a href="/es/" class="hover:text-cyan-400">Guías en Español</a>
+      <span>/</span>
+      <span class="text-slate-500 truncate max-w-xs">{post.data.title}</span>
+    </nav>
+
+    <article class="bg-[#071728] border border-cyan-950 p-6 sm:p-12 rounded-3xl shadow-xl shadow-black/40">
+      <header class="mb-10 pb-8 border-b border-cyan-950">
+        <div class="flex items-center space-x-3 mb-4">
+          <span class="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400 bg-cyan-950/80 px-3 py-1 rounded-full border border-cyan-800">
+            {post.data.category || 'Guía de Olas'}
+          </span>
+          <span class="text-xs text-slate-400 font-mono">
+            {new Date(post.data.pubDate).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}
+          </span>
+        </div>
+
+        <h1 class="text-2xl sm:text-4xl lg:text-5xl font-heading font-black text-white tracking-tight leading-tight mb-4">
+          {post.data.title}
+        </h1>
+
+        {post.data.author && (
+          <p class="text-xs text-slate-400 font-mono">Por {post.data.author}</p>
+        )}
+      </header>
+
+      {post.data.heroImage && (
+        <div class="mb-10 rounded-2xl overflow-hidden border border-cyan-950 shadow-md">
+          <img src={post.data.heroImage} alt={post.data.title} class="w-full h-auto object-cover max-h-[480px]" loading="eager" />
+        </div>
+      )}
+
+      <!-- Contenido del artículo -->
+      <div class="prose prose-invert prose-cyan max-w-none prose-headings:font-heading prose-headings:tracking-tight prose-a:text-cyan-400 prose-img:rounded-xl">
+        <Content />
+      </div>
+
+      {siteConfig.revive?.zones?.inContent && (
+        <div class="my-10 py-6 border-y border-cyan-950 flex justify-center">
+          <ReviveSlot format={siteConfig.revive.zones.inContent.format} zoneId={siteConfig.revive.zones.inContent.zoneId} />
+        </div>
+      )}
+
+      <footer class="mt-12 pt-6 border-t border-cyan-950 flex justify-between items-center text-xs">
+        <a href="/es/" class="font-bold text-cyan-400 hover:text-cyan-300 inline-flex items-center space-x-1">
+          <span>&larr;</span>
+          <span>Volver a las guías en español</span>
+        </a>
+        <a href="/" class="text-slate-400 hover:text-white">Inicio Surf Guadeloupe</a>
+      </footer>
+    </article>
+  </div>
+</Layout>
