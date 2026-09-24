@@ -1,0 +1,38 @@
+# Surf Guadeloupe — Guide des Spots, Houle & Culture Surf aux Antilles
+
+> Le portail de référence du surf en Guadeloupe : guide des 10 meilleurs spots de récif et beach breaks, météo de la houle, écoles certifiées et culture glisse.
+
+## Présentation générale
+Surf Guadeloupe — Guide des Spots, Houle & Culture Surf aux Antilles (https://surf-guadeloupe.com) est un média d'information et guide spécialisé indépendant dédié à sa thématique d'expertise. Notre mission est d'apporter une information fiable, vérifiée et actualisée aux passionnés, professionnels et résidents, en valorisant les meilleures pratiques, les acteurs locaux et l'art de vivre sous les alizés.
+
+## Structure du site & Thématiques phares
+Le contenu est structuré autour des axes éditoriaux majeurs suivants :
+
+- **Actualité** : Analyses, guides détaillés, conseils pratiques et retours d'expérience sur le terrain.
+- **Bases du surf** : Analyses, guides détaillés, conseils pratiques et retours d'expérience sur le terrain.
+- **Surf Schools & Camps** : Analyses, guides détaillés, conseils pratiques et retours d'expérience sur le terrain.
+- **Swell & Weather Forecasts** : Analyses, guides détaillés, conseils pratiques et retours d'expérience sur le terrain.
+- **Ocean Safety & Health** : Analyses, guides détaillés, conseils pratiques et retours d'expérience sur le terrain.
+- **Gear & Board Rentals** : Analyses, guides détaillés, conseils pratiques et retours d'expérience sur le terrain.
+
+## Ressources & Publications
+- [Tous les articles du Magazine](https://surf-guadeloupe.com/blog/) : Plus de 210 publications thématiques, guides d'experts et fiches pratiques rédigées par notre rédaction.
+- [Accueil international (English)](https://surf-guadeloupe.com/en/) : Version anglophone des dossiers et guides de référence.
+- [Accueil international (Español)](https://surf-guadeloupe.com/es/) : Version hispanophone des dossiers et guides de référence.
+
+## Éthique éditoriale & Charte de qualité
+Surf Guadeloupe — Guide des Spots, Houle & Culture Surf aux Antilles s'engage au quotidien sur une charte stricte :
+- Production d'analyses indépendantes, objectives et fondées sur des données terrain.
+- Sensibilisation active au respect de l'environnement local et à la préservation des écosystèmes.
+- Valorisation des artisans, commerces, initiatives durables et talents régionaux.
+
+## Données techniques & Respect de la vie privée
+- Plateforme statique haute performance (Astro 5 SSG, hébergement Edge Cloudflare Pages).
+- Mesure d'audience 100% cookieless via Matomo auto-hébergé, strictement conforme au RGPD et exemptée de consentement préalable selon les recommandations de la CNIL.
+- Régie publicitaire Revive Adserver intégrée de façon asynchrone garantissant une vitesse d'affichage optimale sans traçage intrusif.
+
+## Informations légales & Contact
+- Éditeur : Éditeur indépendant — Passionnés de Glisse & Surf Caraïbes
+- Contact rédaction : contact@surf-guadeloupe.com
+- Mentions Légales : https://surf-guadeloupe.com/mentions-legales/
+- Politique de Confidentialité : https://surf-guadeloupe.com/politique-confidentialite/
